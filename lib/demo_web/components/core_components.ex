@@ -448,6 +448,7 @@ defmodule DemoWeb.CoreComponents do
   attr :rows, :list, required: true
   attr :row_id, :any, default: nil, doc: "the function for generating the row id"
   attr :row_click, :any, default: nil, doc: "the function for handling phx-click on each row"
+  attr :fields, :list, default: nil
 
   attr :row_item, :any,
     default: &Function.identity/1,
@@ -455,6 +456,9 @@ defmodule DemoWeb.CoreComponents do
 
   slot :col, required: true do
     attr :label, :string
+    attr :sorting, :map
+    attr :key, :atom
+
   end
 
   slot :action, doc: "the slot for showing user actions in the last table column"
@@ -470,7 +474,15 @@ defmodule DemoWeb.CoreComponents do
       <table class="w-[40rem] mt-11 sm:w-full">
         <thead class="text-sm text-left leading-6 text-zinc-500">
           <tr>
-            <th :for={col <- @col} class="p-0 pr-6 pb-4 font-normal"><%= col[:label] %></th>
+          <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal" :if={col[:key] in @fields}>
+          <.live_component
+            module={DemoWeb.PersonLive.SortingComponent}
+            id={"sorting-#{col[:label]}"}
+            key={col[:key]}
+            sorting={col[:sorting]} />
+            </th>
+
+
             <th class="relative p-0 pb-4"><span class="sr-only"><%= gettext("Actions") %></span></th>
           </tr>
         </thead>

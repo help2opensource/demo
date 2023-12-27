@@ -1,14 +1,11 @@
 defmodule DemoWeb.Forms.SortingForm do
   import Ecto.Changeset
 
-  @fields %{
-    sort_by: Ecto.Enum, values: [:age, :name],
-    sort_dir: Ecto.Enum, values: [:asc, :desc]
-  }
+  alias Demo.EctoHelper
 
   @fields %{
-    id: :integer,
-    name: :string
+    sort_by: EctoHelper.enum([:age, :name]),
+    sort_dir: EctoHelper.enum([:asc, :desc])
   }
 
   @default_values %{
