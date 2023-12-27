@@ -1,4 +1,4 @@
-defmodule DemoWeb.PersonLive.FormComponent.FilterComponent do
+defmodule DemoWeb.PersonLive.FilterComponent do
   use DemoWeb, :live_component
 
   alias DemoWeb.Forms.FilterForm
@@ -11,12 +11,11 @@ defmodule DemoWeb.PersonLive.FormComponent.FilterComponent do
         for={@changeset}
         id="person-form-search"
         phx-target={@myself}
-
         as="filter"
         phx-submit="search"
       >
-       <.input field={{f, :name}} type="text" label="name" />
-       <.input field={{f, :age}} type="number" label="age" />
+       <.input field={{f, :name}} type="text" name="name" value={@changeset.data.name} label="name" />
+       <.input field={{f, :age}} type="number" name="age" value={@changeset.data.age} label="age" />
         <:actions>
           <.button phx-disable-with="Search...">Search</.button>
         </:actions>
@@ -29,7 +28,7 @@ defmodule DemoWeb.PersonLive.FormComponent.FilterComponent do
     {:ok, assign_changeset(assigns, socket)}
   end
 
-  def handle_event("search", %{"filter" => filter}, socket) do
+  def handle_event("search", filter, socket) do
 
     case FilterForm.parse(filter) do
       {:error, changeset} ->

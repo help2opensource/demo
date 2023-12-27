@@ -7,6 +7,12 @@
   </:actions>
 </.header>
 
+<.live_component
+  module={DemoWeb.PersonLive.FilterComponent}
+  id="filter"
+  filter={@filter}
+/>
+
 <.table
   id="persons"
   rows={@streams.persons}
