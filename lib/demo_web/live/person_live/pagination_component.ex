@@ -20,7 +20,7 @@ defmodule DemoWeb.PersonLive.PaginationComponent do
         <% end %>
       </div>
       <div>
-        <.form :let={f} for={:page_size} phx-change="set_page_size" phx-target={@myself}>
+        <.form :let={f} for={%{}} as={:page_size} phx-change="set_page_size" phx-target={@myself}>
           <.input
             field={{f, :page_size}}
             options={[2, 10, 20, 50, 100]}
