@@ -8,6 +8,8 @@ defmodule DemoWeb.PersonLive.Index do
   alias DemoWeb.Forms.FilterForm
   alias DemoWeb.Forms.PaginationForm
 
+  on_mount {DemoWeb.UserAuth, :mount_current_user}
+
   @impl true
   def mount(_params, _session, socket) do
    #{:ok, stream(socket, :persons, Accounts.list_persons_with_total_count(params))}

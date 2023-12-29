@@ -18,7 +18,7 @@ defmodule DemoWeb.Router do
   end
 
   scope "/", DemoWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through [:browser]
 
     get "/", PageController, :home
 

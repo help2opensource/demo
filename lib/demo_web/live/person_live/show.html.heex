@@ -2,9 +2,11 @@
   Person <%= @person.id %>
   <:subtitle>This is a person record from your database.</:subtitle>
   <:actions>
+   <%= if @current_user do %>
     <.link patch={~p"/persons/#{@person}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit person</.button>
     </.link>
+    <% end %>
   </:actions>
 </.header>
 
