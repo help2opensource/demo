@@ -9,13 +9,13 @@
   </:actions>
 </.header>
 
-<.live_component
+<.live_component  :if={@live_action in [:index]}
   module={DemoWeb.PersonLive.FilterComponent}
   id="filter"
   filter={@filter}
 />
 
-<.table
+<.table  :if={@live_action in [:index]}
   id="persons"
   rows={@streams.persons}
   fields = {[:age, :name]}
@@ -44,7 +44,7 @@
   </:action>
 </.table>
 
-<div>
+<div  :if={@live_action in [:index]}>
   <.live_component
     module={DemoWeb.PersonLive.PaginationComponent}
     id="pagination"
