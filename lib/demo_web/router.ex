@@ -1,5 +1,6 @@
 defmodule DemoWeb.Router do
   use DemoWeb, :router
+  alias DemoWeb.EnsureRolePlug
 
   import DemoWeb.UserAuth
 
@@ -17,10 +18,22 @@ defmodule DemoWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :user do
+    plug EnsureRolePlug, [:admin, :user]
+  end
+
+  pipeline :admin do
+    plug EnsureRolePlug, :admin
+  end
+
   scope "/", DemoWeb do
     pipe_through [:browser]
-
     get "/", PageController, :home
+  end
+
+
+  scope "/", DemoWeb do
+    pipe_through [:browser, :require_authenticated_user, :admin]
 
     live "/persons", PersonLive.Index, :index
     live "/persons/new", PersonLive.Index, :new

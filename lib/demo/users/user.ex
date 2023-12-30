@@ -1,6 +1,12 @@
 defmodule Demo.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
+  import EctoEnum
+
+  defenum(RolesEnum, :role, [
+    :user,
+    :admin
+  ])
 
   schema "users" do
     field :email, :string
@@ -8,6 +14,7 @@ defmodule Demo.Users.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
+    field :role, RolesEnum, default: :user
     timestamps()
   end
 
@@ -39,6 +46,20 @@ defmodule Demo.Users.User do
     |> cast(attrs, [:email, :password])
     |> validate_email(opts)
     |> validate_password(opts)
+  end
+
+  @doc """
+  A user changeset for registering admins.
+  """
+  def admin_registration_changeset(user, attrs) do
+    user
+    |> registration_changeset(attrs)
+    |> prepare_changes(&set_admin_role/1)
+  end
+
+  defp set_admin_role(changeset) do
+    changeset
+    |> put_change(:role, :admin)
   end
 
   defp validate_email(changeset, opts) do
