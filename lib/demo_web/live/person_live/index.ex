@@ -8,10 +8,39 @@ defmodule DemoWeb.PersonLive.Index do
   alias DemoWeb.Forms.FilterForm
   alias DemoWeb.Forms.PaginationForm
 
+
+  def on_mount(:default, params, _session, socket) do
+
+       IO.puts "############################"
+
+       dbg socket.assigns
+
+       dbg params
+
+      {:cont, socket}
+
+  end
+
   on_mount {DemoWeb.UserAuth, :mount_current_user}
+  on_mount __MODULE__
+
+
 
   @impl true
   def mount(_params, _session, socket) do
+
+    socket =
+      attach_hook(socket, :my_hook, :handle_event, fn
+        "delete", params, socket ->
+
+          IO.puts "From attach hook code" <> params
+          # Handle the very special event and then detach the hook
+          #{:halt, detach_hook(socket, :my_hook, :handle_event)}
+          {:cont, socket}
+        _event, _params, socket ->
+          {:cont, socket}
+      end)
+
    #{:ok, stream(socket, :persons, Accounts.list_persons_with_total_count(params))}
    {:ok, stream(socket, :persons, [])}
   end
