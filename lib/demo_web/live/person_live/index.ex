@@ -9,16 +9,10 @@ defmodule DemoWeb.PersonLive.Index do
   alias DemoWeb.Forms.PaginationForm
 
 
-  def on_mount(:default, params, _session, socket) do
-
-       IO.puts "############################"
-
-       dbg socket.assigns
-
-       dbg params
-
+  def on_mount(:default, _params, session, socket) do
+       dbg session
+       dbg socket
       {:cont, socket}
-
   end
 
   on_mount {DemoWeb.UserAuth, :mount_current_user}
@@ -27,7 +21,10 @@ defmodule DemoWeb.PersonLive.Index do
 
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+
+    dbg session
+    dbg socket
 
     socket =
       attach_hook(socket, :my_hook, :handle_event, fn

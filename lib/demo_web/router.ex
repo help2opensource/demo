@@ -12,6 +12,7 @@ defmodule DemoWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug DemoWeb.Plugs.MyPlug
   end
 
   pipeline :api do
@@ -33,14 +34,13 @@ defmodule DemoWeb.Router do
 
 
   scope "/", DemoWeb do
-    pipe_through [:browser, :require_authenticated_user, :admin]
+    pipe_through [:browser, :require_authenticated_user]
+      live "/persons", PersonLive.Index, :index
+      live "/persons/new", PersonLive.Index, :new
+      live "/persons/:id/edit", PersonLive.Index, :edit
 
-    live "/persons", PersonLive.Index, :index
-    live "/persons/new", PersonLive.Index, :new
-    live "/persons/:id/edit", PersonLive.Index, :edit
-
-    live "/persons/:id", PersonLive.Show, :show
-    live "/persons/:id/show/edit", PersonLive.Show, :edit
+      live "/persons/:id", PersonLive.Show, :show
+      live "/persons/:id/show/edit", PersonLive.Show, :edit
 
   end
 
@@ -86,6 +86,7 @@ defmodule DemoWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
+      session: %{"locale"=>Plug.Session.Store.get(:locale)},
       on_mount: [{DemoWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
