@@ -26,21 +26,6 @@ defmodule DemoWeb.PersonLive.Index do
     dbg session
     dbg socket
 
-    """
-    socket =
-      attach_hook(socket, :my_hook, :handle_event, fn
-        "delete", params, socket ->
-
-          IO.puts "From attach hook code" <> params
-          # Handle the very special event and then detach the hook
-          {:halt, detach_hook(socket, :my_hook, :handle_event)}
-          {:cont, socket}
-        _event, _params, socket ->
-          {:cont, socket}
-      end)
-     """
-
-
    #{:ok, stream(socket, :persons, Accounts.list_persons_with_total_count(params))}
    {:ok, stream(socket, :persons, [])}
   end
