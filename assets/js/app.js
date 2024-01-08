@@ -25,15 +25,7 @@ import topbar from "../vendor/topbar"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
-    params: { _csrf_token: csrfToken },
-    dom: {
-        onBeforeElUpdated(from, to) {
-          if (from._x_dataStack) {
-            window.Alpine.clone(from, to)
-            window.Alpine.initTree(to)
-          }
-        }
-      }
+    params: { _csrf_token: csrfToken }
     })
 
 // Show progress bar on live navigation and form submits
