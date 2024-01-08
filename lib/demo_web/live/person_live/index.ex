@@ -7,22 +7,19 @@ defmodule DemoWeb.PersonLive.Index do
   alias DemoWeb.Forms.SortingForm
   alias DemoWeb.Forms.FilterForm
   alias DemoWeb.Forms.PaginationForm
+  on_mount {DemoWeb.UserAuth, :mount_current_user}
+  on_mount __MODULE__
 
 
   def on_mount(:default, _params, session, socket) do
        dbg session
        dbg socket
       {:cont, socket}
+
   end
-
-  on_mount {DemoWeb.UserAuth, :mount_current_user}
-  on_mount __MODULE__
-
-
 
   @impl true
   def mount(_params, session, socket) do
-
     dbg session
     dbg socket
 

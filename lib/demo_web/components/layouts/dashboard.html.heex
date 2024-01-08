@@ -1,4 +1,3 @@
- <%= if Map.has_key?(assigns, :page_title) do %>
 <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
     <aside
       class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-500"
@@ -354,13 +353,3 @@
       </footer>
     </main>
   </div>
-  <% else %>
-
-   <main class="px-4 py-20 sm:px-6 lg:px-8">
-           <div class="mx-auto max-w-2xl">
-             <.flash_group flash={@flash} />
-           <%= @inner_content %>
-  </div>
-</main>
-
-<% end %>
