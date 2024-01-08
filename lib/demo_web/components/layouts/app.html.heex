@@ -1,4 +1,4 @@
- <%= if Map.has_key?(assigns, :page_title) do %>
+ <%= if Map.has_key?(assigns, :actionMenu) do %>
 <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
     <aside
       class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-indigo-500"
@@ -23,7 +23,7 @@
             <a
               href="/"
               class={
-                 if (@page_title == "dashboard") do
+                 if (@actionMenu == "dashboard") do
                   "flex flex-row items-center h-10 px-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                 else
                    "flex flex-row items-center h-10 px-3 rounded-lg text-gray-300  hover:bg-gray-100 hover:text-gray-700"
@@ -54,7 +54,7 @@
             <a
               href="#"
               class={
-                 if (@page_title == "manager") do
+                 if (@actionMenu == "manager") do
                   "flex flex-row items-center h-10 px-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                 else
                    "flex flex-row items-center h-10 px-3 rounded-lg text-gray-300  hover:bg-gray-100 hover:text-gray-700"
@@ -107,7 +107,7 @@
             <a
               href="#"
               class={
-                 if (@page_title == "clients") do
+                 if (@actionMenu == "clients") do
                   "flex flex-row items-center h-10 px-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                 else
                    "flex flex-row items-center h-10 px-3 rounded-lg text-gray-300  hover:bg-gray-100 hover:text-gray-700"
@@ -141,7 +141,7 @@
             <a
               href="#"
               class={
-                 if (@page_title == "addnew") do
+                 if (@actionMenu == "addnew") do
                   "flex flex-row items-center h-10 px-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                 else
                    "flex flex-row items-center h-10 px-3 rounded-lg text-gray-300  hover:bg-gray-100 hover:text-gray-700"
@@ -171,7 +171,7 @@
             <a
               href="#"
               class={
-                 if (@page_title == "profile") do
+                 if (@actionMenu == "profile") do
                   "flex flex-row items-center h-10 px-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                 else
                    "flex flex-row items-center h-10 px-3 rounded-lg text-gray-300  hover:bg-gray-100 hover:text-gray-700"
@@ -198,7 +198,7 @@
             <a
               href="#"
               class={
-                 if (@page_title == "notifications") do
+                 if (@actionMenu == "notifications") do
                   "flex flex-row items-center h-10 px-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                 else
                    "flex flex-row items-center h-10 px-3 rounded-lg text-gray-300  hover:bg-gray-100 hover:text-gray-700"
@@ -231,7 +231,7 @@
             <a
               href="#"
               class={
-                 if (@page_title == "settings") do
+                 if (@actionMenu == "settings") do
                   "flex flex-row items-center h-10 px-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                 else
                    "flex flex-row items-center h-10 px-3 rounded-lg text-gray-300  hover:bg-gray-100 hover:text-gray-700"
@@ -328,17 +328,13 @@
         </li>
       <% end %>
     </ul>
-
         </div>
       </header>
       <div class="main-content flex flex-col flex-grow p-4">
-        <h1 class="font-bold text-2xl text-gray-700">Dashboard</h1>
-
         <div
           class="flex flex-col flex-grow card bg-white rounded mt-4"
         >
-        
-        <main class="px-4 py-20 sm:px-6 lg:px-8">
+        <main class="px-4 py-0 sm:px-6 lg:px-8">
            <div class="mx-auto max-w-2xl">
              <.flash_group flash={@flash} />
            <%= @inner_content %>

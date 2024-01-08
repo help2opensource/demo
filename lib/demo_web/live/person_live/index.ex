@@ -48,6 +48,7 @@ defmodule DemoWeb.PersonLive.Index do
     socket
     |> parse_params(params)
     |> assign(:page_title, "Listing Persons")
+    |> assign(:actionMenu, "dashboard")
     |> assign_persons()
   end
 
