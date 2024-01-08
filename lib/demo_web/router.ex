@@ -27,14 +27,17 @@ defmodule DemoWeb.Router do
     plug EnsureRolePlug, :admin
   end
 
+  """
   scope "/", DemoWeb do
     pipe_through [:browser, :require_authenticated_user]
     get "/", PageController, :home
   end
+  """
 
 
   scope "/", DemoWeb do
     pipe_through [:browser, :require_authenticated_user]
+      live "/", PersonLive.Index, :index
       live "/persons", PersonLive.Index, :index
       live "/persons/new", PersonLive.Index, :new
       live "/persons/:id/edit", PersonLive.Index, :edit
